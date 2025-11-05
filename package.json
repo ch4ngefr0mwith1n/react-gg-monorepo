@@ -1,0 +1,14 @@
+{
+  "name": "react-gg-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/dev-menu.js",
+    "install:all": "pnpm install",
+    "build:all": "pnpm -r build",
+    "dev:all": "pnpm -r --parallel dev"
+  },
+  "devDependencies": {
+    "prompts": "^2.4.2"
+  }
+}
