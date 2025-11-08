@@ -1,26 +1,25 @@
 import './styles.css'
 
-function Avatar() {
-    return <img src={``} alt={``}/>;
+function Avatar({img, name}) {
+    return <img src={img} alt={name}/>;
 }
 
-function Name() {
-    return <h4>name</h4>;
+function Name({name}) {
+    return <h4>{name}</h4>;
 }
 
-function Handle() {
-    return <p>@HANDLE</p>;
+function Handle({handle}) {
+    return <p>{handle}</p>;
 }
 
-function Badge() {
+function Badge({user, style, addFriend}) {
     return (
-        <div style={{}}>
-            <Avatar/>
+        <div style={style}>
+            <Avatar name={user.name} img={user.img}/>
             <div>
-                <Name/>
-                <Handle/>
-                <button onClick={() => {
-                }}>Add Friend
+                <Name name={user.name}/>
+                <Handle handle={user.handle}/>
+                <button onClick={addFriend}>Add Friend
                 </button>
             </div>
         </div>

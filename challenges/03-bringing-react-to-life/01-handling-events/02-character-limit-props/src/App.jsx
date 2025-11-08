@@ -1,12 +1,12 @@
 import './styles.css'
 
-const handleChange = (event) => {
-    if (event.target.value.length > 10) {
-        alert("Character limit exceeded");
-    }
-};
-
 function Input({characterLimit}) {
+    const handleChange = (event) => {
+        if (event.target.value.length > characterLimit) {
+            alert("Character limit exceeded");
+        }
+    };
+
     return <input onChange={handleChange} placeholder="Enter some text"/>;
 }
 

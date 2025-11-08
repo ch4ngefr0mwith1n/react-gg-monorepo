@@ -8,7 +8,14 @@ function List() {
         {id: 61, name: "Mikenzi"}
     ];
 
-    return <ul></ul>;
+    // return <ul></ul>;
+    return (
+        <ul className="list">
+            {friends.map(({id, name}) => {
+                return <li key={id}>{name}</li>
+            })}
+        </ul>
+    );
 }
 
 export default function App() {

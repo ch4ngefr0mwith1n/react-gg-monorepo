@@ -1,0 +1,64 @@
+# Node / pnpm
+node_modules/
+.pnpm-store/
+.pnpm-debug.log
+pnpm-lock.yaml
+
+# Vite / Build artifacts (per app)
+dist/
+build/
+.out/
+.vite/
+
+# Local env files
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# IDE / Editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Optional: Turbo/HMR cache (if using Turborepo or similar)
+.turbo/
+
+# Optional: TypeScript cache
+.tsbuildinfo
+
+# Optional: Coverage
+coverage/
+*.lcov
+
+# Optional: Storybook (if using)
+.storybook-out/
+
+# Optional: Playwright / Cypress
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/cypress/screenshots/
+/cypress/videos/
+
+# Optional: Docker
+Dockerfile.*
+.dockerignore
+.docker/
+
+# Optional: CI/CD artifacts
+.vercel
+.netlify

@@ -6,13 +6,13 @@ const USER_DATA = {
     handle: "benadam11"
 };
 
-function Badge() {
+function Badge({user, style}) {
     return (
-        <div style={{}}>
-            <img alt={``} src={``}/>
+        <div style={style}>
+            <img alt={user.name} src={user.img}/>
             <div>
-                <h4>NAME</h4>
-                <p>@HANDLE</p>
+                <h4>{user.name}</h4>
+                <p>{user.handle}</p>
             </div>
         </div>
     );

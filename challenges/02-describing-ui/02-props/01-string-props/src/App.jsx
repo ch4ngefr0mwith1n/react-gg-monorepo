@@ -1,12 +1,12 @@
 import './styles.css'
 
-function Badge() {
+function Badge({name, handle, img}) {
     return (
         <div className="badge">
-            <img alt={``} src={``}/>
+            <img alt={name} src={img}/>
             <div>
-                <h4>NAME</h4>
-                <p>@HANDLE</p>
+                <h4>{name}</h4>
+                <p>{handle}</p>
             </div>
         </div>
     );

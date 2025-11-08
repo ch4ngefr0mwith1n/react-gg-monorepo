@@ -1,9 +1,15 @@
 function List() {
-  const friends = ["Ben", "Lynn", "Alex"];
+    const friends = ["Ben", "Lynn", "Alex"];
 
-  return <ul></ul>;
+    return (
+        <ul>
+            {friends.map((friend, index) => {
+                return <li key={index}>{friend}</li>
+            })}
+        </ul>
+    );
 }
 
 export default function App() {
-  return <List />;
+    return <List/>;
 }

@@ -1,26 +1,76 @@
+:root {
+    /* Primary / Vivid colors */
+    --red: #ff0000;
+    --green: #00ff00;
+    --blue: #0000ff;
+    --orange: #ffa500;
+    --pink: #ff69b4;
+    --purple: #800080;
+    --yellow: #ffff00;
+    --cyan: #00ffff;
+    --magenta: #ff00ff;
+
+    /* Neutral / Gray scale */
+    --white: #ffffff;
+    --black: #000000;
+    --gray-light: #d3d3d3;
+    --gray: #808080;
+    --gray-dark: #505050;
+    --charcoal: #333333;
+    --coal: #1a1a1a;
+
+    /* Earth / Warm tones */
+    --beige: #f5f5dc;
+    --tan: #d2b48c;
+    --brown: #8b4513;
+    --olive: #808000;
+    --maroon: #800000;
+
+    /* Cool tones */
+    --teal: #008080;
+    --navy: #000080;
+    --sky-blue: #87ceeb;
+    --mint: #98ff98;
+    --lavender: #e6e6fa;
+
+    /* Pastels */
+    --peach: #ffe5b4;
+    --baby-blue: #89cff0;
+    --mint-green: #98ff98;
+    --lavender-pink: #fbaed2;
+    --lemon: #fffacd;
+
+    /* Special / Accents */
+    --gold: #ffd700;
+    --silver: #c0c0c0;
+    --bronze: #cd7f32;
+    --coral: #ff7f50;
+    --turquoise: #40e0d0;
+}
+
 img {
-  width: 200px;
-  border-radius: 50%;
+    width: 200px;
+    border-radius: 50%;
 }
 
 h4 {
-  margin: 5px;
+    margin: 5px;
 }
 
 p {
-  margin: 5px;
+    margin: 5px;
 }
 
 .badge {
-  width: 300px;
-  margin: 0 auto;
-  border: 1px solid var(--beige-10);
-  border-radius: 8px;
-  background-color: var(--charcoal);
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  text-align: center;
+    width: 300px;
+    margin: 0 auto;
+    border: 1px solid var(--beige-10);
+    border-radius: 8px;
+    background-color: var(--charcoal);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
 }

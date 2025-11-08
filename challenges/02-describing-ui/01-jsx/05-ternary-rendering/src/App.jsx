@@ -25,9 +25,7 @@ function LactoseTolerant() {
 export default function App() {
     const isLactoseTolerant = getIsLactoseTolerant();
 
-    if (isLactoseTolerant) {
-        return <LactoseTolerant/>;
-    }
-
-    return <LactoseIntolerant/>;
+    return (
+        isLactoseTolerant ? <LactoseTolerant/> : <LactoseIntolerant/>
+    );
 }
