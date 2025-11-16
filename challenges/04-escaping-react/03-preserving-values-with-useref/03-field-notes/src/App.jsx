@@ -1,5 +1,6 @@
 import './styles.css'
 import * as React from "react";
+import {useEffect, useRef} from "react";
 
 export default function FieldNotes() {
     const [notes, setNotes] = React.useState([
@@ -9,12 +10,49 @@ export default function FieldNotes() {
         "Just like a component enabled the composition and reusability of UI, hooks enabled the composition and reusability of non-visual logic."
     ]);
 
+    // const lastNoteRef = React.useRef(null);
+    //
+    // React.useEffect(() => {
+    //     if (lastNoteRef.current) {
+    //         lastNoteRef.current.scrollIntoView();
+    //     }
+    // });
+    //
+    //         <ul>
+    //           {notes.map((msg, index) => (
+    //             <li
+    //               ref={index === notes.length - 1 ? lastNoteRef : null}
+    //               key={index}
+    //             >
+    //               {msg}
+    //             </li>
+    //           ))}
+    //         </ul>
+
+    const listRef = useRef([]);
+
+    useEffect(() => {
+        if (listRef.current) {
+            const lastElement = listRef.current[listRef.current.length - 1]
+            lastElement.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest",
+            })
+        }
+    }, [notes]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const form = e.target;
         const formData = new FormData(form);
         const newNote = formData.get("note");
+
+        if (newNote.trim()) {
+            setNotes([...notes, newNote])
+            form.reset();
+        }
     };
+
 
     return (
         <article>
@@ -22,7 +60,7 @@ export default function FieldNotes() {
             <div>
                 <ul>
                     {notes.map((msg, index) => (
-                        <li key={index}>{msg}</li>
+                        <li key={index} ref={element => listRef.current[index] = element}>{msg}</li>
                     ))}
                 </ul>
                 <form onSubmit={handleSubmit}>

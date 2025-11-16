@@ -1,6 +1,7 @@
 import './styles.css'
 import * as React from "react";
 import {RotatingLines} from "react-loader-spinner";
+import {useEffect} from "react";
 
 const fetchData = async ({query = "", page = 0, tag = ""}) => {
     return fetch(
@@ -23,6 +24,7 @@ export default function HackerNewsSearch() {
     const [page, setPage] = React.useState(0);
     const [resultsPerPage, setResultsPerPage] = React.useState(0);
     const [totalPages, setTotalPages] = React.useState(50);
+
     const [loading, setLoading] = React.useState(false);
 
     const handleSearch = (e) => {
@@ -42,6 +44,34 @@ export default function HackerNewsSearch() {
     const handlePrevPage = () => {
         setPage(page - 1);
     };
+
+    useEffect(() => {
+        let ignore = false
+
+        const handleFetchData = async () => {
+            setLoading(true)
+            // stari podaci ne trebaju da se prikazuju dok pretraga traje:
+            setResults([]);
+
+            const {results, pages, resultsPerPage} = await fetchData({query: query, page: page, tag: tag})
+
+            if (ignore) {
+                return
+            } else {
+                setResults(results)
+                setTotalPages(pages)
+                setResultsPerPage(resultsPerPage)
+            }
+
+            setLoading(false)
+        }
+
+        handleFetchData();
+
+        return () => {
+            ignore = true
+        }
+    }, [query, tag, page]);
 
     return (
         <div className="container">

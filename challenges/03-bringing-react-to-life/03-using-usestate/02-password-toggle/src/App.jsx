@@ -1,15 +1,21 @@
 import './styles.css'
-import React from "react";
+import React, {useState} from "react";
 
 function PasswordInput({minimum = 8}) {
-    const inputValue = "";
-    const isInputValueVisible = false;
-    const thresholdMet = false;
+    // const inputValue = "";
+    // const isInputValueVisible = false;
+    // const thresholdMet = false;
+    const [inputValue, setInputValue] = useState("")
+    const [isInputValueVisible, setIsInputValueVisible] = useState(false)
+    const thresholdMet = inputValue.length >= minimum;
 
-    const handleChange = () => {
+
+    const handleChange = (e) => {
+        setInputValue(e.target.value)
     };
 
     const handleToggleVisibility = () => {
+        setIsInputValueVisible(!isInputValueVisible)
     };
 
     const handleSubmit = (e) => {

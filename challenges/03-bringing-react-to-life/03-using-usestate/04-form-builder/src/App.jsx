@@ -1,10 +1,14 @@
 import './styles.css'
 import * as React from "react";
+import {useState} from "react";
 
 export default function FormBuilder() {
-    const formFields = [];
+    // const formFields = [];
+    const [formFields, setFormFields] = useState([])
 
     const handleAddFormField = (e) => {
+        e.preventDefault();
+
         const formData = new FormData(e.target);
 
         const newField = {
@@ -15,12 +19,26 @@ export default function FormBuilder() {
             required: formData.get("required"),
             value: ""
         };
+
+        // ako nam je početni state u vidu niza, ovako dodajemo novi element unutar njega
+        setFormFields([...formFields, newField])
+
+        e.target.reset();
     };
 
     const handleUpdateFormField = (id, updatedField) => {
+        const updatedFormFields = formFields.map((field) => {
+            // kopira vrijednosti iz starog fielda i na kraju vrši overwrite
+            field.id === id ? {...field, ...updatedField} : field
+        })
+
+        setFormFields(updatedFormFields)
     };
 
     const handleDeleteFormField = (id) => {
+        const updatedFormFields = formFields.filter(field => field.id !== id)
+
+        setFormFields(updatedFormFields)
     };
 
     const handleSubmit = (e) => {

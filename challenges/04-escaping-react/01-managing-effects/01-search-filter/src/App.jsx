@@ -21,14 +21,17 @@ const items = [
 
 export default function SearchFilter() {
     const [searchTerm, setSearchTerm] = React.useState("");
-    const [filteredItems, setFilteredItems] = React.useState(items);
+    // const [filteredItems, setFilteredItems] = React.useState(items);
+    const filteredItems = items.filter((item) =>
+        item.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
-    React.useEffect(() => {
-        const result = items.filter((item) =>
-            item.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setFilteredItems(result);
-    }, [searchTerm]);
+    // React.useEffect(() => {
+    //     const result = items.filter((item) =>
+    //         item.toLowerCase().includes(searchTerm.toLowerCase())
+    //     );
+    //     setFilteredItems(result);
+    // }, [searchTerm]);
 
     return (
         <div className="container">

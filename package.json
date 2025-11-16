@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "prompts": "^2.4.2"
+  },
+  "dependencies": {
+    "react-loader-spinner": "^8.0.0"
   }
 }

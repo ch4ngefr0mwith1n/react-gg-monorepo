@@ -1,5 +1,6 @@
 import './styles.css'
 import * as React from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 
 const videoPlaybackContext = React.createContext({
     playingVideoId: null,
@@ -8,24 +9,48 @@ const videoPlaybackContext = React.createContext({
 });
 
 function VideoPlaybackProvider({children}) {
-    const playingVideoId = null;
-    const setPlayingVideoId = () => {
-    };
+    // const playingVideoId = null;
+    // const setPlayingVideoId = () => {
+    // };
+    const [playingVideoId, setPlayingVideoId] = useState(null)
 
-    return null;
+    return (
+        <videoPlaybackContext.Provider
+            value={{playingVideoId, setPlayingVideoId}}>
+            {children}
+        </videoPlaybackContext.Provider>
+    );
 }
 
 function VideoItem({videoId, title, poster, src}) {
-    const videoIsActive = false;
+    const {playingVideoId, setPlayingVideoId} = useContext(videoPlaybackContext)
+    const videoRef = useRef(null)
+
+    const videoIsActive = videoId === playingVideoId;
 
     const handleTogglePlay = () => {
+        // ukoliko klip na koji kliknemo nije bio aktivan
+        if (!videoIsActive) {
+            setPlayingVideoId(videoId)
+        } else {
+            // na trenutnom smo videu, a korisnik ga je pauzirao
+            setPlayingVideoId(null)
+        }
     };
+
+    useEffect(() => {
+        if (videoIsActive) {
+            videoRef.current.play()
+        } else {
+            videoRef.current.pause()
+        }
+    }, [videoIsActive]);
 
     return (
         <li>
             <h3>{title}</h3>
             <article>
-                <video poster={poster}>
+                <video poster={poster} ref={videoRef}>
                     <source src={src} type="video/mp4"/>
                 </video>
                 <button
@@ -67,7 +92,12 @@ function NewsFeed() {
     return (
         <div>
             <h1>News Feed</h1>
-            <ul></ul>
+            <ul>
+                {videos.map((video) => (
+                    <VideoItem videoId={video.id} title={video.title} src={video.src} poster={video.poster}/>
+
+                ))}
+            </ul>
         </div>
     );
 }

@@ -1,5 +1,6 @@
 import './styles.css'
 import * as React from "react";
+import {useContext, useState} from "react";
 
 const translations = {
     en: {
@@ -28,19 +29,29 @@ const languageContext = React.createContext({
 });
 
 function LanguageProvider({children}) {
-    const language = "en";
+    const [language, setLanguage] = useState("en")
 
-    const changeLanguage = () => {
+    const changeLanguage = (newLanguage) => {
+        setLanguage(newLanguage)
     };
 
-    const translation = () => {
+    const translation = (key) => {
+        return translations[language]?.[key] || key
     };
 
-    return null;
+    return (
+        <languageContext.Provider
+            value={{language, changeLanguage, translation}}>
+            {children}
+        </languageContext.Provider>
+    );
 }
 
 function LanguageSwitcher() {
-    const {language, changeLanguage} = React.useContext(languageContext);
+    // const language = null;
+    // const changeLanguage = () => {}
+    const {language, changeLanguage} = useContext(languageContext)
+
 
     return (
         <div>

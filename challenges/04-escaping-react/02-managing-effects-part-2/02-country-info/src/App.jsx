@@ -1,14 +1,75 @@
 import './styles.css'
 import * as React from "react";
+import {useEffect, useState} from "react";
+
+const delayFetch = (url, options) => {
+    // 👀 In case API is too fast:
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(fetch(url, options));
+        }, options.delay);
+    });
+};
+
+async function fetchCountry(countryCode) {
+    try {
+        const res = await delayFetch(`https://restcountries.com/v2/alpha/${countryCode}`, {
+            delay: 500,
+        });
+
+        if (res.ok === true) {
+            return {
+                error: null,
+                response: await res.json(),
+            };
+        }
+
+        throw new Error(`Error fetching country #${countryCode}`);
+    } catch (e) {
+        return {
+            error: e,
+            response: null,
+        };
+    }
+}
 
 export default function CountryInfo() {
-    const countryCode = "AU";
-    const data = null;
-    const isLoading = true;
-    const error = null;
+    const [countryCode, setCountryCode] = useState("AU");
+    const [data, setData] = useState(null);
+
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const handleChange = (e) => {
+        setCountryCode(e.target.value)
     };
+
+    useEffect(() => {
+        let ignore = false;
+
+        const handleFetchCountries = async () => {
+            setIsLoading(true)
+            setError(null);
+
+            const {error, response} = await fetchCountry(countryCode)
+
+            if (ignore) {
+                return
+            } else if (error) {
+                setError(error.message)
+            } else {
+                setData(response)
+            }
+
+            setIsLoading(false)
+        }
+
+        handleFetchCountries();
+
+        return () => {
+            ignore = true;
+        }
+    }, [countryCode]);
 
     return (
         <div className="container">

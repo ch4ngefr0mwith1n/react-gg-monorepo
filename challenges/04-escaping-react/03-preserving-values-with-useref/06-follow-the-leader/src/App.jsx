@@ -1,6 +1,7 @@
 import './styles.css'
 import * as React from "react";
 
+
 export default function FollowTheLeader() {
     const position = [0, 0];
 

@@ -1,5 +1,5 @@
 import './styles.css'
-import React from "react";
+import React, {useState} from "react";
 
 const initialFormData = {
     name: "",
@@ -10,20 +10,32 @@ const initialFormData = {
 };
 
 export default function MultiStepForm() {
-    const currentStep = 1;
-    const formData = initialFormData;
+    // const currentStep = 1;
+    // const formData = initialFormData;
+    const [currentStep, setCurrentStep] = useState(1)
+    const [formData, setFormData] = useState(initialFormData)
 
-    const handleChange = () => {
+    const handleChange = (e) => {
+        // setFormData({ ...formData, [e.target.name]: e.target.value });
+
+        const {name, value} = e.target
+        setFormData({...formData, [name]: value})
     };
 
     const handleNextStep = () => {
+        setCurrentStep(currentStep + 1)
     };
 
     const handlePrevStep = () => {
+        setCurrentStep(currentStep - 1)
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         alert("Thank you for your submission");
+
+        setCurrentStep(1)
+        setFormData(initialFormData)
     };
 
     if (currentStep === 1) {

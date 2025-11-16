@@ -1,8 +1,19 @@
 import './styles.css'
 import * as React from "react";
+import {useEffect, useRef, useState} from "react";
 
 export default function ExpandingTextarea() {
-    const text = "";
+    const [text, setText] = useState("")
+    const textAreaRef = useRef(null)
+
+    const handleChange = (event) => {
+        setText(event.target.value)
+        // automatski smanjuje textarea nakon što obrišemo upisani tekst
+        textAreaRef.current.style.height = "inherit";
+
+        const scrollHeight = textAreaRef.current.scrollHeight;
+        textAreaRef.current.style.height = scrollHeight + "px";
+    }
 
     return (
         <section className="container">
@@ -12,9 +23,9 @@ export default function ExpandingTextarea() {
                 id="textarea"
                 placeholder="Enter some text"
                 value={text}
-                onChange={() => {
-                }}
+                onChange={handleChange}
                 rows={1}
+                ref={textAreaRef}
             />
         </section>
     );

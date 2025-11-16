@@ -1,6 +1,7 @@
 import './styles.css'
 import * as React from "react";
 import Dashboard from "./Dashboard.jsx";
+import {useContext, useState} from "react";
 
 const authContext = React.createContext({
     isAuthenticated: false,
@@ -11,21 +12,25 @@ const authContext = React.createContext({
 });
 
 const AuthProvider = ({children}) => {
-    const isAuthenticated = false;
+    // const isAuthenticated = false;
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
 
     const login = () => {
+        setIsAuthenticated(true)
     };
 
     const logout = () => {
+        setIsAuthenticated(false)
     };
 
-    return <authContext.Provider>{children}</authContext.Provider>;
+    return <authContext.Provider value={{isAuthenticated, login, logout}}>{children}</authContext.Provider>;
 };
 
 function NavBar() {
-    const logout = () => {
-    };
-    const isAuthenticated = false;
+    const {isAuthenticated, logout} = useContext(authContext)
+    // const logout = () => {
+    // };
+    // const isAuthenticated = false;
 
     return (
         <nav>
@@ -42,7 +47,7 @@ function NavBar() {
 }
 
 function LoginForm() {
-    const {login} = React.useContext(authContext);
+    const {login} = useContext(authContext)
 
     const handleSubmit = (event) => {
         event.preventDefault();

@@ -1,5 +1,6 @@
 import './styles.css'
 import * as React from "react";
+import {useContext, useState} from "react";
 
 const tabContext = React.createContext({
     activeTabValue: null,
@@ -7,16 +8,25 @@ const tabContext = React.createContext({
     }
 });
 
-function TabProvider() {
-    return null;
+function TabProvider({defaultValue, children}) {
+    const [activeTabValue, setActiveTabValue] = useState(defaultValue)
+
+    return (
+        <tabContext.Provider value={{activeTabValue, setActiveTabValue}}>
+            {children}
+        </tabContext.Provider>
+    );
 }
 
-function TabTrigger({value}) {
-    const activeTabValue = null;
-    const setActiveTabValue = () => {
-    };
+function TabTrigger({value, children}) {
+    // const activeTabValue = null;
+    // const setActiveTabValue = () => {
+    // };
+
+    const {activeTabValue, setActiveTabValue} = useContext(tabContext)
 
     const handleSetActiveTabValue = () => {
+        setActiveTabValue(value)
     };
 
     return (
@@ -24,13 +34,19 @@ function TabTrigger({value}) {
             onClick={handleSetActiveTabValue}
             className={`tab ${activeTabValue === value ? "active" : ""}`}
         >
-            TODO
+            {children}
         </button>
     );
 }
 
-function TabContent() {
-    return null;
+function TabContent({value, children}) {
+    const {activeTabValue} = useContext(tabContext)
+
+    if (activeTabValue !== value) {
+        return
+    }
+
+    return children;
 }
 
 export default function App() {
